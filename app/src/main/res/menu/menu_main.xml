@@ -1,0 +1,66 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.softvalley.hotelpos.MainActivity">
+    <item
+        android:id="@+id/action_refresh"
+        android:orderInCategory="1"
+        android:title="@string/refresh"
+        android:icon="@drawable/ic_baseline_refresh_24"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_call"
+        android:orderInCategory="1"
+        android:title="Call"
+        android:icon="@drawable/ic_baseline_call_24"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_edit"
+        android:orderInCategory="2"
+        android:title="@string/edit"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_department"
+        android:orderInCategory="2"
+        android:title="@string/department"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_item"
+        android:orderInCategory="2"
+        android:title="@string/item"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_purchase"
+        android:orderInCategory="2"
+        android:title="@string/document"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_purchase_return"
+        android:orderInCategory="2"
+        android:title="@string/document_purchase_return"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sale"
+        android:orderInCategory="2"
+        android:title="@string/sale"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_sale_return"
+        android:orderInCategory="2"
+        android:title="@string/sale_return"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_stock_adjustment"
+        android:orderInCategory="2"
+        android:title="@string/stock_adjustment"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_signout"
+        android:orderInCategory="3"
+        android:title="@string/sign_out"
+        app:showAsAction="never" />
+
+</menu>

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
+
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.softvalley.hotelpos.views.SplashScreenFragment"
+        android:label="Loading"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_splashScreenFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.softvalley.hotelpos.views.authantication.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+        <action
+            android:id="@+id/action_loginFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.softvalley.hotelpos.views.authantication.SignUpFragment"
+        android:label="Sign Up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/phoneNumberFragment"
+        android:name="com.softvalley.hotelpos.views.authantication.PhoneNumberFragment"
+        android:label="fragment_phone_number"
+        tools:layout="@layout/fragment_phone_number" >
+        <action
+            android:id="@+id/action_phoneNumberFragment_to_OTPFragment"
+            app:destination="@id/OTPFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/OTPFragment"
+        android:name="com.softvalley.hotelpos.views.authantication.OTPFragment"
+        android:label="fragment_phone_number"
+        tools:layout="@layout/fragment_o_t_p" >
+        <argument
+            android:name="phoneNumber"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_OTPFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.softvalley.hotelpos.views.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFilterBottomSheetFragment"
+            app:destination="@id/searchFilterBottomSheetFragment"
+            />
+
+        <action
+            android:id="@+id/action_homeFragment_to_editBusinessNameBottomSheetFragment"
+            app:destination="@id/editBusinessNameBottomSheetFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_addPartyFragment"
+            app:destination="@id/addPartyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_homeFragment_to_partyFullInfoFragment"
+            app:destination="@id/partyFullInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/moneyFragment"
+        android:name="com.softvalley.hotelpos.views.MoneyFragment"
+        android:label="Money"
+        tools:layout="@layout/fragment_money" >
+        <action
+            android:id="@+id/action_moneyFragment_to_editBusinessNameBottomSheetFragment2"
+            app:destination="@id/editBusinessNameBottomSheetFragment" />
+        <action
+            android:id="@+id/action_moneyFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/moreFragment"
+        android:name="com.softvalley.hotelpos.views.MoreFragment"
+        android:label="More"
+        tools:layout="@layout/fragment_more" >
+
+        <action
+            android:id="@+id/action_moreFragment_to_itemListFragment"
+            app:destination="@id/itemListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_moreFragment_to_purchaseFragment"
+            app:destination="@id/purchaseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_moreFragment_to_saleReturnDocFragment"
+            app:destination="@id/saleReturnDocFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <dialog
+        android:id="@+id/searchFilterBottomSheetFragment"
+        android:name="com.softvalley.hotelpos.views.SearchFilterBottomSheetFragment"
+        android:label="edit_business_name_bottom_sheet"
+        tools:layout="@layout/search_filter_bottom_sheet" />
+    <dialog
+        android:id="@+id/editBusinessNameBottomSheetFragment"
+        android:name="com.softvalley.hotelpos.views.EditBusinessNameBottomSheetFragment"
+        android:label="fragment_edit_business_name_bottom_sheet"
+        tools:layout="@layout/fragment_edit_business_name_bottom_sheet" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.softvalley.hotelpos.views.CalendarFragment"
+        android:label="Calendar"
+        tools:layout="@layout/fragment_calendar" />
+    <fragment
+        android:id="@+id/addPartyFragment"
+        android:name="com.softvalley.hotelpos.views.party.AddPartyFragment"
+        android:label="fragment_add_party"
+        tools:layout="@layout/fragment_add_party" >
+        <argument
+            android:name="partyType"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="party"
+            app:argType="com.softvalley.hotelpos.models.Party"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/partyFullInfoFragment"
+        android:name="com.softvalley.hotelpos.views.party.PartyFullInfoFragment"
+        android:label="fragment_party_full_info"
+        tools:layout="@layout/fragment_party_full_info" >
+
+        <action
+            android:id="@+id/action_PartyFullInfo_to_addPartyFragment"
+            app:destination="@id/addPartyFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="party"
+            app:argType="com.softvalley.hotelpos.models.Party"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_partyFullInfoFragment_to_setReminderBottomSheetDialogFragment"
+            app:destination="@id/setReminderBottomSheetDialogFragment" />
+        <action
+            android:id="@+id/action_partyFullInfoFragment_to_addAmountFragment"
+            app:destination="@id/addAmountFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <dialog
+        android:id="@+id/setReminderBottomSheetDialogFragment"
+        android:name="com.softvalley.hotelpos.views.SetReminderBottomSheetDialogFragment"
+        android:label="fragment_set_reminder_bottom_sheet_dialog"
+        tools:layout="@layout/fragment_set_reminder_bottom_sheet_dialog" />
+    <fragment
+        android:id="@+id/addAmountFragment"
+        android:name="com.softvalley.hotelpos.views.party.AddAmountFragment"
+        android:label="Add Amount"
+        tools:layout="@layout/fragment_add_amount">
+
+
+        <argument
+            android:name="party"
+            app:argType="com.softvalley.hotelpos.models.Party" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.softvalley.hotelpos.views.stock.AddItemFragment"
+        android:label="Add Item"
+        tools:layout="@layout/fragment_add_item" >
+
+        <argument
+            android:name="itemCode"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.softvalley.hotelpos.views.stock.ItemListFragment"
+        android:label="Items"
+        tools:layout="@layout/fragment_item_list">
+        <action
+            android:id="@+id/action_itemListFragment_to_addItemFragment"
+            app:destination="@id/addItemFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="key"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDepartmentFragment"
+        android:name="com.softvalley.hotelpos.views.department.AddDepartmentFragment"
+        android:label="Department"
+        tools:layout="@layout/fragment_add_department"/>
+    <fragment
+        android:id="@+id/purchaseFragment"
+        android:name="com.softvalley.hotelpos.views.purchase.PurchaseFragment"
+        android:label="Purchase Document"
+        tools:layout="@layout/fragment_purchase">
+        <action
+            android:id="@+id/action_purchaseFragment_to_purchaseListFragment"
+            app:destination="@id/purchaseListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+        <action
+            android:id="@+id/action_purchaseFragment_to_itemListFragment"
+            app:destination="@id/itemListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseListFragment"
+        android:name="com.softvalley.hotelpos.views.purchase.PurchaseListFragment"
+        android:label="Document List"
+        tools:layout="@layout/fragment_purchase_list">
+        <argument
+            android:name="purchaseType"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="header"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/saleDocFragment"
+        android:name="com.softvalley.hotelpos.views.sale.SaleDocFragment"
+        android:label="Sale Document"
+        tools:layout="@layout/fragment_sale_doc">
+        <action
+            android:id="@+id/action_saleDocFragment_to_saleDocListFragment"
+            app:destination="@id/saleDocListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/saleDocListFragment"
+        android:name="com.softvalley.hotelpos.views.sale.SaleDocListFragment"
+        android:label="Document List"
+        tools:layout="@layout/fragment_sale_doc_list">
+        <argument
+            android:name="docType"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="header"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/saleReturnDocFragment"
+        android:name="com.softvalley.hotelpos.views.sale.SaleReturnDocFragment"
+        android:label="Sale Return Document"
+        tools:layout="@layout/fragment_sale_doc__return">
+        <action
+            android:id="@+id/action_saleReturnDocFragment_to_saleDocListFragment"
+            app:destination="@id/saleDocListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseReturnFragment"
+        android:name="com.softvalley.hotelpos.views.purchase.PurchaseReturnFragment"
+        android:label="Purchase Return Document"
+        tools:layout="@layout/fragment_purchase_return">
+        <action
+            android:id="@+id/action_purchaseReturnFragment_to_purchaseListFragment"
+            app:destination="@id/purchaseListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/stockAdjustmentFragment"
+        android:name="com.softvalley.hotelpos.views.stockAdjustment.StockAdjustmentFragment"
+        android:label="Stock Adjustment"
+        tools:layout="@layout/fragment_stock_adjustment">
+        <action
+            android:id="@+id/action_stockAdjustmentFragment_to_stockAdjustListFragment"
+            app:destination="@id/stockAdjustListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/stockAdjustListFragment"
+        android:name="com.softvalley.hotelpos.views.stockAdjustment.StockAdjustListFragment"
+        android:label="StockAdjustListFragment" />
+    <fragment
+        android:id="@+id/tableListFragment"
+        android:name="com.softvalley.hotelpos.views.table.TableListFragment"
+        android:label="TableListFragment"
+        tools:layout="@layout/fragment_tables_list"/>
+
+
+</navigation>
