@@ -3,8 +3,12 @@ package com.softvalley.hotelpos.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.softvalley.hotelpos.utils.Converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +77,7 @@ public class Document implements Parcelable {
 
     @SerializedName("DocumentDetail")
     @Expose
+    @TypeConverters(Converter.class)
     private List<Item> items= new ArrayList<>();
 
     public Document() {

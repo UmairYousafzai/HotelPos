@@ -1,9 +1,11 @@
 package com.softvalley.hotelpos.views.sale.repository;
 
+import static com.softvalley.hotelpos.utils.CONSTANTS.GET_DEPARTMENT;
 import static com.softvalley.hotelpos.utils.CONSTANTS.GET_DOCUMENT;
 import static com.softvalley.hotelpos.utils.CONSTANTS.GET_DOCUMENT_BY_CODE;
 import static com.softvalley.hotelpos.utils.CONSTANTS.GET_ITEMS;
 import static com.softvalley.hotelpos.utils.CONSTANTS.GET_PARTY;
+import static com.softvalley.hotelpos.utils.CONSTANTS.GET_PRODUCT_RESPONSE;
 import static com.softvalley.hotelpos.utils.CONSTANTS.SAVE_DOCUMENT_RESPONSE;
 import static com.softvalley.hotelpos.utils.CONSTANTS.SERVER_ERROR;
 
@@ -13,11 +15,13 @@ import androidx.annotation.NonNull;
 
 import com.softvalley.hotelpos.Interface.CallBackListener;
 import com.softvalley.hotelpos.models.Document;
+import com.softvalley.hotelpos.models.GetDepartmentResponse;
 import com.softvalley.hotelpos.models.GetDocumentByCode;
 import com.softvalley.hotelpos.models.GetDocumentResponse;
 import com.softvalley.hotelpos.models.GetItemResponse;
 import com.softvalley.hotelpos.models.GetPartiesServerResponse;
 import com.softvalley.hotelpos.models.SaveDocumentResponse;
+import com.softvalley.hotelpos.models.response.product.ProductResponse;
 import com.softvalley.hotelpos.network.ApiClient;
 
 import retrofit2.Call;
@@ -250,6 +254,124 @@ public class SaleRepository {
                     callBackListener.getServerResponse(t.getMessage(), SERVER_ERROR);
 
                 }
+            }
+        });
+    }
+    public void getDepartmentFromServer(String businessId)
+    {
+
+        Call<GetDepartmentResponse> call = ApiClient.getInstance().getApi().getDepartment(businessId);
+
+        call.enqueue(new Callback<GetDepartmentResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<GetDepartmentResponse> call, @NonNull Response<GetDepartmentResponse> response) {
+                if (response.isSuccessful())
+                {
+                    if (response.body()!=null)
+                    {
+                        if (response.body().getCode()==200)
+                        {
+                            if (callBackListener!=null)
+                            {
+                                callBackListener.getServerResponse(response.body(), GET_DEPARTMENT);
+
+                            }
+                        }
+                        else
+                        {
+                            callBackListener.getServerResponse(response.body().getMessage(),SERVER_ERROR);
+
+                        }
+
+                    }
+                    else
+                    {
+                        callBackListener.getServerResponse(response.message(),SERVER_ERROR);
+
+                    }
+                }
+                else
+                {
+                    if (response.errorBody() != null) {
+                        if (callBackListener!=null)
+                        {
+                            callBackListener.getServerResponse(response.errorBody().toString(),SERVER_ERROR);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GetDepartmentResponse> call, @NonNull Throwable t) {
+                if (callBackListener!=null)
+                {
+                    callBackListener.getServerResponse(t.getMessage(),SERVER_ERROR);
+
+                }
+
+            }
+        });
+    }
+    public void getProductsByDepartment(String businessId,String departmentCode)
+    {
+
+        Call<ProductResponse> call = ApiClient.getInstance().getApi().getProductByDepCode(
+                departmentCode,
+                "",
+                "",
+                "1",
+                "10",
+                businessId);
+
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<ProductResponse> call, @NonNull Response<ProductResponse> response) {
+                if (response.isSuccessful())
+                {
+                    if (response.body()!=null)
+                    {
+                        if (response.body().getCode()==200)
+                        {
+                            if (callBackListener!=null)
+                            {
+                                callBackListener.getServerResponse(response.body(), GET_PRODUCT_RESPONSE);
+
+                            }
+                        }
+                        else
+                        {
+                            callBackListener.getServerResponse(response.body().getMessage(),SERVER_ERROR);
+
+                        }
+
+                    }
+                    else
+                    {
+                        callBackListener.getServerResponse(response.message(),SERVER_ERROR);
+
+                    }
+                }
+                else
+                {
+                    if (response.errorBody() != null) {
+                        if (callBackListener!=null)
+                        {
+                            callBackListener.getServerResponse(response.errorBody().toString(),SERVER_ERROR);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProductResponse> call, @NonNull Throwable t) {
+                if (callBackListener!=null)
+                {
+                    callBackListener.getServerResponse(t.getMessage(),SERVER_ERROR);
+
+                }
+
             }
         });
     }

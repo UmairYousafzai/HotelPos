@@ -1,6 +1,5 @@
 package com.softvalley.hotelpos.views.table.viewModel;
 
-import static com.softvalley.hotelpos.utils.CONSTANTS.GET_DOCUMENT;
 import static com.softvalley.hotelpos.utils.CONSTANTS.GET_TABLE_RESPONSE;
 import static com.softvalley.hotelpos.utils.CONSTANTS.SERVER_ERROR;
 
@@ -9,6 +8,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.softvalley.hotelpos.models.response.table.Table;
 import com.softvalley.hotelpos.models.response.table.TableResponse;
+import com.softvalley.hotelpos.utils.SharedPreferenceHelper;
 import com.softvalley.hotelpos.views.table.repository.TableRepository;
 
 import java.util.List;
@@ -42,7 +42,9 @@ public class TableViewModel extends ViewModel {
     }
     public void getTables()
     {
-        repository.getTables();
+//        String businessID = SharedPreferenceHelper.getInstance(getApplication()).getBUSINESS_ID();
+        showProgressDialog.setValue(true);
+        repository.getTables("0000000001");
     }
 
     private void getServerResponse() {
@@ -51,6 +53,7 @@ public class TableViewModel extends ViewModel {
                 if (key == GET_TABLE_RESPONSE) {
                     TableResponse tableResponse = (TableResponse) object;
                     tableLiveData.setValue(tableResponse.getTableList());
+                    toastMessage.setValue(tableResponse.getMessage());
                     showProgressDialog.setValue(false);
                 } else if (key == SERVER_ERROR) {
                     toastMessage.setValue((String) object);

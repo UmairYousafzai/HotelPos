@@ -26,6 +26,7 @@ import com.softvalley.hotelpos.models.request.SaveStockAdjustmentRequest;
 import com.softvalley.hotelpos.models.request.Voucher;
 import com.softvalley.hotelpos.models.response.ServerResponse;
 import com.softvalley.hotelpos.models.response.party.SavePartyResponse;
+import com.softvalley.hotelpos.models.response.product.ProductResponse;
 import com.softvalley.hotelpos.models.response.stockAdjustment.GetStockAdjustByCode;
 import com.softvalley.hotelpos.models.response.stockAdjustment.SaveStockAdjustmentResponse;
 import com.softvalley.hotelpos.models.response.table.TableResponse;
@@ -153,8 +154,17 @@ public interface Api {
 
     /****************************   Table  **********************/
 
-    @GET("api/Table/TablesData")
-    Call<TableResponse> getTables();
+    @GET("api/table/TableData")
+    Call<TableResponse> getTables(@Query("businessId") String businessID);
+
+    @GET("api/Product/ProductEcomData")
+    Call<ProductResponse> getProductByDepCode(@Query("DepartmentCode") String depCode,
+                                              @Query("GroupCode") String groupCode,
+                                              @Query("SubGroupCode") String subGroupCode,
+                                              @Query("FromIndex") String fromIndex,
+                                              @Query("ToIndex") String toIndex,
+                                              @Query("businessId") String businessID);
+
 
 
 }

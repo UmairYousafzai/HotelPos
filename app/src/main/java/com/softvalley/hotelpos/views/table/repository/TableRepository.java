@@ -21,10 +21,10 @@ public class TableRepository {
         this.callBackListener = callBackListener;
     }
 
-    public void getTables() {
+    public void getTables(String businessId) {
 
 
-        Call<TableResponse> call = ApiClient.getInstance().getApi().getTables();
+        Call<TableResponse> call = ApiClient.getInstance().getApi().getTables(businessId);
 
         call.enqueue(new Callback<TableResponse>() {
             @Override

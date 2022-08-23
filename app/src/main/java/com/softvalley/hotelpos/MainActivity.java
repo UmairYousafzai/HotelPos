@@ -162,11 +162,16 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.addDepartmentFragment);
         } else if (item.getItemId() == R.id.action_purchase) {
             navController.navigate(R.id.purchaseFragment);
-        } else if (item.getItemId() == R.id.action_sale) {
-            navController.navigate(R.id.saleDocFragment);
-        } else if (item.getItemId() == R.id.action_sale_return) {
-            navController.navigate(R.id.saleReturnDocFragment);
-        } else if (item.getItemId() == R.id.action_purchase_return) {
+        } else if (item.getItemId() == R.id.action_order) {
+            navController.navigate(R.id.orderFragment);
+        }
+//        else if (item.getItemId() == R.id.action_sale) {
+//            navController.navigate(R.id.saleDocFragment);
+//        } else if (item.getItemId() == R.id.action_sale_return)
+//        {
+//            navController.navigate(R.id.saleReturnDocFragment);
+//        }
+        else if (item.getItemId() == R.id.action_purchase_return) {
             navController.navigate(R.id.purchaseReturnFragment);
         } else if (item.getItemId() == R.id.action_item) {
             navController.navigate(R.id.itemListFragment);

@@ -43,15 +43,20 @@
         android:title="@string/document_purchase_return"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_sale"
+        android:id="@+id/action_order"
         android:orderInCategory="2"
-        android:title="@string/sale"
+        android:title="@string/order"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_sale_return"
-        android:orderInCategory="2"
-        android:title="@string/sale_return"
-        app:showAsAction="never" />
+<!--    <item-->
+<!--        android:id="@+id/action_sale"-->
+<!--        android:orderInCategory="2"-->
+<!--        android:title="@string/sale"-->
+<!--        app:showAsAction="never" />-->
+<!--    <item-->
+<!--        android:id="@+id/action_sale_return"-->
+<!--        android:orderInCategory="2"-->
+<!--        android:title="@string/sale_return"-->
+<!--        app:showAsAction="never" />-->
     <item
         android:id="@+id/action_stock_adjustment"
         android:orderInCategory="2"

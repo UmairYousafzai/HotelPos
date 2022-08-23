@@ -5,15 +5,23 @@ import android.util.Log;
 import android.widget.EditText;
 
 import androidx.databinding.InverseMethod;
+import androidx.room.TypeConverter;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.softvalley.hotelpos.R;
+import com.softvalley.hotelpos.models.Item;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Converter {
@@ -151,5 +159,20 @@ public class Converter {
             }
         }
        return num;
+    }
+
+    @TypeConverter
+    public static String ProductListTOString(List<Item> itemList)
+    {
+        Gson gson = new Gson();
+        return gson.toJson(itemList);
+    }
+
+    @TypeConverter
+    public static List<Item> ProductListTOString(String itemListString)
+    {
+        Type listType = new TypeToken<List<Item>>() {}.getType();
+        Gson gson = new Gson();
+        return gson.fromJson(itemListString,listType);
     }
 }

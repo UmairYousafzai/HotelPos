@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,6 +23,12 @@ public class CustomBindingAdapter {
     public static void setAdapter(RecyclerView recyclerView,RecyclerView.Adapter<?> adapter)
     {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        recyclerView.setAdapter(adapter);
+    }
+    @BindingAdapter("setGridAdapter")
+    public static void setGridAdapter(RecyclerView recyclerView,RecyclerView.Adapter<?> adapter)
+    {
+        recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
         recyclerView.setAdapter(adapter);
     }
 

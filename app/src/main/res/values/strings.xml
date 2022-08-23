@@ -94,5 +94,6 @@
     <string name="free_qty">Free Qty</string>
     <string name="ctn">CTN</string>
     <string name="s_qty">S-Qty</string>
+    <string name="order">Order</string>
 
 </resources>

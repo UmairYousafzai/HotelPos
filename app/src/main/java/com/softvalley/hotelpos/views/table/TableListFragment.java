@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableListFragment extends Fragment {
+public class TableListFragment extends Fragment implements AdapterTables.TableClickListener {
 
     private FragmentTablesListBinding binding;
     private NavController navController;
@@ -35,9 +35,9 @@ public class TableListFragment extends Fragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       binding = FragmentTablesListBinding.inflate(inflater,container,false);
+        binding = FragmentTablesListBinding.inflate(inflater, container, false);
 
-       return binding.getRoot();
+        return binding.getRoot();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class TableListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         navController = NavHostFragment.findNavController(this);
-        viewModel= new ViewModelProvider(this).get(TableViewModel.class);
+        viewModel = new ViewModelProvider(this).get(TableViewModel.class);
         viewModel.getTables();
         setUpRecyclerView();
         liveDataListener();
@@ -54,8 +54,7 @@ public class TableListFragment extends Fragment {
 
     private void liveDataListener() {
         viewModel.getTableLiveData().observe(getViewLifecycleOwner(), tables -> {
-            if (tables!=null)
-            {
+            if (tables != null) {
                 adapterTables.setTableModelList(tables);
             }
         });
@@ -63,9 +62,13 @@ public class TableListFragment extends Fragment {
 
     private void setUpRecyclerView() {
 
-         adapterTables = new AdapterTables(requireContext());
+        adapterTables = new AdapterTables(requireContext(), this);
         binding.rvTables.setAdapter(adapterTables);
         binding.rvTables.setLayoutManager(new GridLayoutManager(requireContext(), 3));
     }
 
+    @Override
+    public void onClick(Table table, int noOfGuest) {
+        navController.navigate( TableListFragmentDirections.actionTableListFragmentToOrderFragment(table,noOfGuest));
+    }
 }

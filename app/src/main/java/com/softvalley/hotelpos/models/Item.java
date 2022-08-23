@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -12,7 +14,11 @@ import com.softvalley.hotelpos.BR;
 
 import java.util.List;
 
+@Entity(tableName = "item")
 public class Item extends BaseObservable implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int idLocal;
 
     @SerializedName("Barcode")
     @Expose
@@ -34,9 +40,7 @@ public class Item extends BaseObservable implements Parcelable {
     @SerializedName("Uan")
     @Expose
     private String uan;
-    @SerializedName("UanList")
-    @Expose
-    private List<String> uanList = null;
+
     @SerializedName("DepartmentCode")
     @Expose
     private String departmentCode;
@@ -144,13 +148,13 @@ public class Item extends BaseObservable implements Parcelable {
 
 
     protected Item(Parcel in) {
+        idLocal = in.readInt();
         barcode = in.readString();
         businessBarcode = in.readString();
         businessID = in.readString();
         userID = in.readString();
         referenceCode = in.readString();
         uan = in.readString();
-        uanList = in.createStringArrayList();
         departmentCode = in.readString();
         groupCode = in.readString();
         subGroupCode = in.readString();
@@ -184,53 +188,6 @@ public class Item extends BaseObservable implements Parcelable {
         schemeQty = in.readDouble();
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(barcode);
-        dest.writeString(businessBarcode);
-        dest.writeString(businessID);
-        dest.writeString(userID);
-        dest.writeString(referenceCode);
-        dest.writeString(uan);
-        dest.writeStringList(uanList);
-        dest.writeString(departmentCode);
-        dest.writeString(groupCode);
-        dest.writeString(subGroupCode);
-        dest.writeString(description);
-        dest.writeString(nativeDescription);
-        dest.writeDouble(unitCost);
-        dest.writeDouble(unitRetail);
-        dest.writeDouble(ctnPcs);
-        dest.writeString(supplierCode);
-        dest.writeString(productType);
-        dest.writeString(comments);
-        dest.writeString(status);
-        dest.writeString(productImage);
-        dest.writeString(gstType);
-        dest.writeString(action);
-        dest.writeDouble(gstPercentage);
-        dest.writeString(hsCode);
-        dest.writeDouble(hsPercentage);
-        dest.writeDouble(gstAmount);
-        dest.writeDouble(netCost);
-        dest.writeDouble(unitSize);
-        dest.writeInt(btn_action);
-        dest.writeDouble(qty);
-        dest.writeDouble(freeQty);
-        dest.writeDouble(scheme);
-        dest.writeDouble(cost);
-        dest.writeDouble(discount);
-        dest.writeDouble(amount);
-        dest.writeString(freeCtn);
-        dest.writeString(ctnQtY);
-        dest.writeDouble(schemeQty);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
     public static final Creator<Item> CREATOR = new Creator<Item>() {
         @Override
         public Item createFromParcel(Parcel in) {
@@ -242,6 +199,14 @@ public class Item extends BaseObservable implements Parcelable {
             return new Item[size];
         }
     };
+
+    public int getIdLocal() {
+        return idLocal;
+    }
+
+    public void setIdLocal(int idLocal) {
+        this.idLocal = idLocal;
+    }
 
     public double getQty() {
         return qty;
@@ -368,13 +333,6 @@ public class Item extends BaseObservable implements Parcelable {
         this.uan = uan;
     }
 
-    public List<String> getUanList() {
-        return uanList;
-    }
-
-    public void setUanList(List<String> uanList) {
-        this.uanList = uanList;
-    }
 
     public String getDepartmentCode() {
         return departmentCode;
@@ -621,5 +579,52 @@ public class Item extends BaseObservable implements Parcelable {
         }
 
         return ctn + "-" + pcs;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(idLocal);
+        parcel.writeString(barcode);
+        parcel.writeString(businessBarcode);
+        parcel.writeString(businessID);
+        parcel.writeString(userID);
+        parcel.writeString(referenceCode);
+        parcel.writeString(uan);
+        parcel.writeString(departmentCode);
+        parcel.writeString(groupCode);
+        parcel.writeString(subGroupCode);
+        parcel.writeString(description);
+        parcel.writeString(nativeDescription);
+        parcel.writeDouble(unitCost);
+        parcel.writeDouble(unitRetail);
+        parcel.writeDouble(ctnPcs);
+        parcel.writeString(supplierCode);
+        parcel.writeString(productType);
+        parcel.writeString(comments);
+        parcel.writeString(status);
+        parcel.writeString(productImage);
+        parcel.writeString(gstType);
+        parcel.writeString(action);
+        parcel.writeDouble(gstPercentage);
+        parcel.writeString(hsCode);
+        parcel.writeDouble(hsPercentage);
+        parcel.writeDouble(gstAmount);
+        parcel.writeDouble(netCost);
+        parcel.writeDouble(unitSize);
+        parcel.writeInt(btn_action);
+        parcel.writeDouble(qty);
+        parcel.writeDouble(freeQty);
+        parcel.writeDouble(scheme);
+        parcel.writeDouble(cost);
+        parcel.writeDouble(discount);
+        parcel.writeDouble(amount);
+        parcel.writeString(freeCtn);
+        parcel.writeString(ctnQtY);
+        parcel.writeDouble(schemeQty);
     }
 }

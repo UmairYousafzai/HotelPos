@@ -135,7 +135,6 @@ public class AddItemFragment extends Fragment {
 
             barcode = editedItem.getBarcode();
             uan = editedItem.getUan();
-            uanList = editedItem.getUanList();
         }
     }
 
@@ -264,7 +263,6 @@ public class AddItemFragment extends Fragment {
                             item.setAction(saveAction);
                             item.setBarcode(barcode);
                             item.setUan(uan);
-                            item.setUanList(uanList);
                             item.setUserID(SharedPreferenceHelper.getInstance(requireContext()).getUserID());
                             item.setBusinessID(SharedPreferenceHelper.getInstance(requireContext()).getBUSINESS_ID());
 

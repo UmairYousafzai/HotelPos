@@ -11,7 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static Retrofit retrofitClient;
-    private static final String BASE_URL = "https://hotelapi.sbstorefsd.com/";
+//    private static final String BASE_URL = "https://hotelapi.sbstorefsd.com/";
+    private static final String BASE_URL = "https://easyapitest.thevapehouse.pk/";
     private static ApiClient mInstance;
 
 

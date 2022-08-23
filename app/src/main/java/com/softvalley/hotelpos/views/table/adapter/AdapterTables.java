@@ -25,10 +25,16 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
     private final List<Table> tableModelList;
     private final Context context;
     private  LayoutInflater layoutInflater;
+    private TableClickListener listener;
 
-    public AdapterTables(Context context) {
+    public AdapterTables(Context context,TableClickListener listener) {
         this.context = context;
         this.tableModelList = new ArrayList<>();
+        this.listener= listener;
+    }
+
+    public interface TableClickListener{
+         void onClick(Table table,int noOfGuest);
     }
 
     @NonNull
@@ -49,13 +55,11 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         final Table table = tableModelList.get(i);
-
         holder.mBinding.txtTable.setText(table.getTableName());
         if (SharedPreferenceHelper.getInstance(context).getIsReserved(table.getTableName())) {
             holder.mBinding.tableCard.setCardBackgroundColor(Color.parseColor("#EEAF48"));
-            int numberOfGuest=SharedPreferenceHelper.getInstance(context).getNumberOfGuestByTable(String.valueOf(table.getTableId()));
+            int numberOfGuest=SharedPreferenceHelper.getInstance(context).getNumberOfGuestByTable(String.valueOf(table.getTableCode()));
             holder.mBinding.tvNumberGuest.setText(String.valueOf(numberOfGuest));
-
         }
 
         Log.e("tabelName", "" + table.getTableName());
@@ -93,7 +97,7 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
 
                     if (SharedPreferenceHelper.getInstance(context).getIsReserved(table.getTableName()))
                     {
-//
+
 //                        NavController navController= NavHostFragment.findNavController(fragment);
 //
 //                        DashBoardFragmentDirections.ActionDashBoardFragmentToOrderFragment action= DashBoardFragmentDirections.actionDashBoardFragmentToOrderFragment();
@@ -145,6 +149,7 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
 //                action.setTable(table);
 //
 //                navController.navigate(action);
+                listener.onClick(table,1);
                 Log.e("tableNAMe", table.getTableName());
                 dialog.dismiss();
             }
@@ -152,12 +157,14 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         txtTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,2);
                 dialog.dismiss();
             }
         });
         txtThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,3);
 
                 dialog.dismiss();
             }
@@ -165,61 +172,68 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         txtFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onClick(table,4);
                 dialog.dismiss();
             }
         });
         txtFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,5);
                 dialog.dismiss();
             }
         });
         txtSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,6);
                 dialog.dismiss();
             }
         });
         txtSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onClick(table,7);
                 dialog.dismiss();
             }
         });
         txtEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onClick(table,8);
                 dialog.dismiss();
             }
         });
         txtNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,9);
                 dialog.dismiss();
             }
         });
         txtTen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,10);
                 dialog.dismiss();
             }
         });
         txtEleven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                listener.onClick(table,11);
                 dialog.dismiss();
             }
         });
         txtTwelve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                listener.onClick(table,12);
                 dialog.dismiss();
             }
         });
         dialog.show();
     }
+
+
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.softvalley.hotelpos.models.Item;
 import com.softvalley.hotelpos.models.Party;
 import com.softvalley.hotelpos.models.User;
 
@@ -35,5 +36,14 @@ public interface Dao {
 
     @Query("Select *from Party  where partyType=:type order by partyName asc  ")
     LiveData<List<Party>> getParties(String type);
+
+    @Insert
+    void insertItem(List<Item> items);
+
+    @Insert
+    void insertItem(Item item);
+
+    @Query("Delete from item")
+    void deleteItem( );
 
 }

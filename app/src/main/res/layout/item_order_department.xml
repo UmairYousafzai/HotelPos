@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="model"
+            type="com.softvalley.hotelpos.models.Department" />
+        <variable
+            name="viewModel"
+            type="com.softvalley.hotelpos.views.sale.viewModel.OrderViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtDepartmentName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@{model.departmentName,default=DepartmentName}"
+            android:layout_marginTop="@dimen/_1sdp"
+            android:layout_marginEnd="@dimen/_1sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"
+            android:padding="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/_1sdp"
+            android:onClick="@{()-> viewModel.departmentAdapterOnClick(model)}"/>
+
+    </LinearLayout>
+</layout>

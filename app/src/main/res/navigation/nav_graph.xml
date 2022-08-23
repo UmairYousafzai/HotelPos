@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/tableListFragment">
 
 
     <fragment
@@ -408,7 +408,23 @@
         android:id="@+id/tableListFragment"
         android:name="com.softvalley.hotelpos.views.table.TableListFragment"
         android:label="TableListFragment"
-        tools:layout="@layout/fragment_tables_list"/>
+        tools:layout="@layout/fragment_tables_list">
+        <action
+            android:id="@+id/action_tableListFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.softvalley.hotelpos.views.sale.OrderFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_order">
+        <argument
+            android:name="table"
+            app:argType="com.softvalley.hotelpos.models.response.table.Table" />
+        <argument
+            android:name="noOfGuest"
+            app:argType="integer" />
+    </fragment>
 
 
 </navigation>
