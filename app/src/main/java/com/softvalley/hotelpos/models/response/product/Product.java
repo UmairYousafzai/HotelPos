@@ -78,9 +78,10 @@ public class Product implements Serializable {
     @SerializedName("ProductImage")
     @Expose
     private String productImage;
+    private String Retail;
 
     private int Qty;
-    private double amount;
+    private double Amount;
 
     public int getQty() {
         return Qty;
@@ -92,11 +93,11 @@ public class Product implements Serializable {
     }
 
     public double getAmount() {
-        return amount;
+        return Amount;
     }
 
     public void setAmount(double amount) {
-        this.amount = amount;
+        this.Amount = amount;
     }
 
     public String getDepartmentCode() {

@@ -25,10 +25,13 @@ import com.softvalley.hotelpos.models.SubGroup;
 import com.softvalley.hotelpos.models.request.SaveStockAdjustmentRequest;
 import com.softvalley.hotelpos.models.request.Voucher;
 import com.softvalley.hotelpos.models.response.ServerResponse;
+import com.softvalley.hotelpos.models.response.order.SaveOrderResponse;
 import com.softvalley.hotelpos.models.response.party.SavePartyResponse;
 import com.softvalley.hotelpos.models.response.product.ProductResponse;
 import com.softvalley.hotelpos.models.response.stockAdjustment.GetStockAdjustByCode;
 import com.softvalley.hotelpos.models.response.stockAdjustment.SaveStockAdjustmentResponse;
+import com.softvalley.hotelpos.models.response.table.SaveTableResponse;
+import com.softvalley.hotelpos.models.response.table.Table;
 import com.softvalley.hotelpos.models.response.table.TableResponse;
 import com.softvalley.hotelpos.models.response.voucher.VoucherResponse;
 
@@ -129,8 +132,13 @@ public interface Api {
     @GET("api/Sale/SaleByCode")
     Call<GetDocumentByCode> getSaleDocByCode(@Query("DocNo")String docNO);
 
+    @GET("api/Sale/SaleByCode")
+    Call<SaveOrderResponse> getOrderByCode(@Query("DocNo")String docNO);
+
     @POST("api/Sale/SaveSale")
     Call<SaveDocumentResponse> saveSaleDoc(@Body Document document);
+    @POST("api/Sale/SaveSale")
+    Call<SaveOrderResponse> saveOrder(@Body com.softvalley.hotelpos.models.request.Order.Document document);
 
     @POST("api/Party/SavePartyVoucher")
     Call<ServerResponse> saveVoucher(@Body Voucher voucher);
@@ -164,6 +172,8 @@ public interface Api {
                                               @Query("FromIndex") String fromIndex,
                                               @Query("ToIndex") String toIndex,
                                               @Query("businessId") String businessID);
+    @POST("api/table/SaveTable")
+    Call<SaveTableResponse> saveTable(@Query("businessId") String businessID,@Body Table table);
 
 
 

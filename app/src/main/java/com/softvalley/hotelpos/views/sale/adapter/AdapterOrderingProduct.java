@@ -91,6 +91,11 @@ public class AdapterOrderingProduct extends RecyclerView.Adapter<AdapterOrdering
         return itemList;
     }
 
+    public void clearList() {
+        itemList.clear();
+        notifyDataSetChanged();
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ItemOrderingProductsBinding mBinding;

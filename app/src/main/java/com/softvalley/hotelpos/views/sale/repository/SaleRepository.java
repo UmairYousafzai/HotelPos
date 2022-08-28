@@ -21,6 +21,7 @@ import com.softvalley.hotelpos.models.GetDocumentResponse;
 import com.softvalley.hotelpos.models.GetItemResponse;
 import com.softvalley.hotelpos.models.GetPartiesServerResponse;
 import com.softvalley.hotelpos.models.SaveDocumentResponse;
+import com.softvalley.hotelpos.models.response.order.SaveOrderResponse;
 import com.softvalley.hotelpos.models.response.product.ProductResponse;
 import com.softvalley.hotelpos.network.ApiClient;
 
@@ -214,6 +215,45 @@ public class SaleRepository {
             }
         });
     }
+    public void saveSaleOrder(com.softvalley.hotelpos.models.request.Order.Document document) {
+        Call<SaveOrderResponse> call = ApiClient.getInstance().getApi().saveOrder(document);
+
+        call.enqueue(new Callback<SaveOrderResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<SaveOrderResponse> call, @NonNull Response<SaveOrderResponse> response) {
+
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (callBackListener != null) {
+
+                            callBackListener.getServerResponse(response.body(), SAVE_DOCUMENT_RESPONSE);
+
+
+                        }
+                    }
+
+
+                } else {
+                    if (response.errorBody() != null) {
+                        if (callBackListener != null) {
+                            callBackListener.getServerResponse(response.errorBody().toString(), SERVER_ERROR);
+
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SaveOrderResponse> call, @NonNull Throwable t) {
+
+                if (callBackListener != null) {
+                    callBackListener.getServerResponse(t.getMessage(), SERVER_ERROR);
+
+                }
+            }
+        });
+    }
 
 
     public void getSaleDocByCode(String docCode) {
@@ -249,6 +289,47 @@ public class SaleRepository {
 
             @Override
             public void onFailure(@NonNull Call<GetDocumentByCode> call, @NonNull Throwable t) {
+
+                if (callBackListener != null) {
+                    callBackListener.getServerResponse(t.getMessage(), SERVER_ERROR);
+
+                }
+            }
+        });
+    }
+    public void getOrderCode(String docCode) {
+        Call<SaveOrderResponse> call = ApiClient.getInstance().getApi().getOrderByCode(docCode);
+
+        call.enqueue(new Callback<SaveOrderResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<SaveOrderResponse> call, @NonNull Response<SaveOrderResponse> response) {
+
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (callBackListener != null) {
+
+                            callBackListener.getServerResponse(response.body(), GET_DOCUMENT_BY_CODE);
+
+                        }
+                    } else {
+                        callBackListener.getServerResponse("Nothing Found", SERVER_ERROR);
+
+                    }
+
+
+                } else {
+                    if (response.errorBody() != null) {
+                        if (callBackListener != null) {
+                            callBackListener.getServerResponse(response.errorBody().toString(), SERVER_ERROR);
+
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SaveOrderResponse> call, @NonNull Throwable t) {
 
                 if (callBackListener != null) {
                     callBackListener.getServerResponse(t.getMessage(), SERVER_ERROR);

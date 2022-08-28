@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.softvalley.hotelpos.databinding.ItemOrderedProductBinding;
 import com.softvalley.hotelpos.models.Item;
+import com.softvalley.hotelpos.models.response.product.Product;
 import com.softvalley.hotelpos.views.sale.viewModel.OrderViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterOrderedProducts extends RecyclerView.Adapter<AdapterOrderedProducts.ViewHolder> {
-    private List<Item> itemList;
+    private List<Product> itemList;
     private OrderViewModel viewModel;
     private LayoutInflater layoutInflater;
 
@@ -42,16 +43,16 @@ public class AdapterOrderedProducts extends RecyclerView.Adapter<AdapterOrderedP
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        final Item item = itemList.get(i);
+        final Product item = itemList.get(i);
         holder.mBinding.txtProductName.setText(item.getDescription());
         holder.mBinding.tvProductPrice.setText(String.valueOf(item.getUnitRetail()));
         holder.mBinding.txtQuantityProduct.setText(String.valueOf(item.getQty()));
         double totalAmount= item.getQty()*item.getUnitRetail();
-        holder.mBinding.tvTotalAmount.setText(String.valueOf(totalAmount));
+        holder.mBinding.tvTotalAmount.setText(String.valueOf(item.getAmount()));
 
 
     }
-    public void setItemList(List<Item> list)
+    public void setItemList(List<Product> list)
     {
         if (list!=null)
         {
@@ -79,7 +80,7 @@ public class AdapterOrderedProducts extends RecyclerView.Adapter<AdapterOrderedP
         }
     }
 
-    public List<Item> getItemList() {
+    public List<Product> getItemList() {
         return itemList;
     }
 }

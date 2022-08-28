@@ -1,13 +1,13 @@
-package com.softvalley.hotelpos.models;
+package com.softvalley.hotelpos.models.request.Order;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.softvalley.hotelpos.models.Item;
 import com.softvalley.hotelpos.models.response.product.Product;
 import com.softvalley.hotelpos.utils.Converter;
 
@@ -76,36 +76,16 @@ public class Document implements Parcelable {
     @Expose
     private String party;
 
+
     @SerializedName("DocumentDetail")
     @Expose
     @TypeConverters(Converter.class)
-    private List<Item> items= new ArrayList<>();
+    private List<Product> items= new ArrayList<>();
 
+    private String TableCode;
     public Document() {
     }
 
-    public Document(String docNo, String docNoBusinessWise, String docDate, double amount, String supplier, String supplierName, String location, String status, String supplierCode, String locationCode, double totalDiscountAmount, double totalAmount, String userId, String businessId, String action, String docType, String partyCode, String partyName, String party, List<Item> items) {
-        this.docNo = docNo;
-        this.docNoBusinessWise = docNoBusinessWise;
-        this.docDate = docDate;
-        this.amount = amount;
-        this.supplier = supplier;
-        this.supplierName = supplierName;
-        this.location = location;
-        this.status = status;
-        this.supplierCode = supplierCode;
-        this.locationCode = locationCode;
-        this.totalDiscountAmount = totalDiscountAmount;
-        this.totalAmount = totalAmount;
-        this.userId = userId;
-        this.businessId = businessId;
-        this.action = action;
-        this.docType = docType;
-        this.partyCode = partyCode;
-        PartyName = partyName;
-        this.party = party;
-        this.items = items;
-    }
 
     protected Document(Parcel in) {
         docNo = in.readString();
@@ -127,7 +107,7 @@ public class Document implements Parcelable {
         partyCode = in.readString();
         PartyName = in.readString();
         party = in.readString();
-        items = in.createTypedArrayList(Item.CREATOR);
+        TableCode = in.readString();
     }
 
     @Override
@@ -151,7 +131,7 @@ public class Document implements Parcelable {
         dest.writeString(partyCode);
         dest.writeString(PartyName);
         dest.writeString(party);
-        dest.writeTypedList(items);
+        dest.writeString(TableCode);
     }
 
     @Override
@@ -170,6 +150,14 @@ public class Document implements Parcelable {
             return new Document[size];
         }
     };
+
+    public String getTableCode() {
+        return TableCode;
+    }
+
+    public void setTableCode(String tableCode) {
+        TableCode = tableCode;
+    }
 
     public String getParty() {
         return party;
@@ -211,11 +199,11 @@ public class Document implements Parcelable {
         this.supplierName = supplierName;
     }
 
-    public List<Item> getItems() {
+    public List<Product> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<Product> items) {
         this.items = items;
     }
 
@@ -331,8 +319,5 @@ public class Document implements Parcelable {
         this.status = status;
     }
 
-    public void setProduct(List<Product> itemList) {
 
-
-    }
 }

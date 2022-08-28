@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable @org.jetbrains.annotations.Nullable Bundle arguments) {
 
-                if (destination.getId() == R.id.homeFragment) {
+                if (destination.getId() == R.id.tableListFragment) {
                     mainBinding.bottomView.setVisibility(View.VISIBLE);
                     mainBinding.bottomView.show(1, true);
                 } else if (destination.getId() == R.id.moneyFragment) {
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         AppBarConfiguration appBarConfiguration =
-                new AppBarConfiguration.Builder(R.id.homeFragment, R.id.moneyFragment, R.id.moreFragment).build();
+                new AppBarConfiguration.Builder(R.id.tableListFragment, R.id.moneyFragment, R.id.moreFragment).build();
         Toolbar toolbar = mainBinding.toolbar;
 
         setSupportActionBar(toolbar);
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (model.getId()) {
                 case 1: {
-                    navController.navigate(R.id.homeFragment, null, navOptions);
+                    navController.navigate(R.id.tableListFragment, null, navOptions);
                     break;
                 }
                 case 2: {

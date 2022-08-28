@@ -18,6 +18,50 @@ public class Table implements Serializable {
     @SerializedName("Status")
     @Expose
     private String status;
+    @Expose
+    private String userId;
+    @SerializedName("BusinessId")
+    @Expose
+    private String businessId;
+    @SerializedName("Action")
+    @Expose
+    private String action;
+    public Table() {
+    }
+
+    public Table(String tableCode, String tableCodeBusinessWise, String tableName, String status, String userId, String businessId, String action) {
+        this.tableCode = tableCode;
+        this.tableCodeBusinessWise = tableCodeBusinessWise;
+        this.tableName = tableName;
+        this.status = status;
+        this.userId = userId;
+        this.businessId = businessId;
+        this.action = action;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getBusinessId() {
+        return businessId;
+    }
+
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public String getTableCode() {
         return tableCode;

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.softvalley.hotelpos.utils.CONSTANTS"/>
         <variable
             name="viewModel"
             type="com.softvalley.hotelpos.views.sale.viewModel.OrderViewModel" />
@@ -26,7 +27,8 @@
                 android:background="#22A894"
                 android:paddingStart="@dimen/_8sdp"
                 app:drawableStartCompat="@drawable/ic_baseline_arrow_back_24"
-                android:paddingLeft="@dimen/_8sdp" />
+                android:paddingLeft="@dimen/_8sdp"
+                android:onClick="@{()-> viewModel.onClick(CONSTANTS.BACK_BTN)}"/>
 
             <TextView
                 android:id="@+id/txtClearOrder"
@@ -49,6 +51,7 @@
                 android:textSize="@dimen/_12ssp"
                 android:background="#AA47BC"
                 android:textStyle="bold"
+                android:onClick="@{()-> viewModel.onClick(CONSTANTS.ADD_CUSTOMER_BTN)}"
                 android:layout_weight="1" />
 
             <TextView
@@ -96,6 +99,7 @@
                         android:textColor="@color/app_theme_color"
                         android:textSize="18sp"
                         android:textStyle="bold"
+                        android:onClick="@{()-> viewModel.onClick(CONSTANTS.ORDERING_BTN)}"
 
                         android:layout_weight="1" />
 
@@ -112,7 +116,9 @@
                         android:gravity="center"
                         android:textColor="@color/app_theme_color"
                         android:textSize="@dimen/_12ssp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:onClick="@{()-> viewModel.onClick(CONSTANTS.ORDER_BTN)}"
+                        />
 
                 </LinearLayout>
 
@@ -135,7 +141,8 @@
                     android:id="@+id/rvOrderedProduct"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    setAdapter="@{viewModel.orderedProductAdapter}"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -194,12 +201,14 @@
                     android:id="@+id/btn_send"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_36sdp"
-                    android:text="Send"
+                    android:text="@string/send"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:textSize="@dimen/_14ssp"
                     android:background="#F44236"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:onClick="@{()-> viewModel.onClick(CONSTANTS.SAVE_HOTEL_SALE_BTN)}"
+                    />
 
                 <TextView
                     android:id="@+id/btn_payment"

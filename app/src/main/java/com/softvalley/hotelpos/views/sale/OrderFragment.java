@@ -1,7 +1,14 @@
 package com.softvalley.hotelpos.views.sale;
 
+import static com.softvalley.hotelpos.utils.CONSTANTS.ADD_CUSTOMER_BTN;
+import static com.softvalley.hotelpos.utils.CONSTANTS.BACK_BTN;
+import static com.softvalley.hotelpos.utils.CONSTANTS.ORDERING_BTN;
+import static com.softvalley.hotelpos.utils.CONSTANTS.ORDER_BTN;
+
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +23,14 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.snackbar.Snackbar;
+import com.softvalley.hotelpos.databinding.CustomSelectCustomerDialogBinding;
 import com.softvalley.hotelpos.databinding.FragmentOrderBinding;
+import com.softvalley.hotelpos.utils.CONSTANTS;
 import com.softvalley.hotelpos.utils.DialogUtil;
+import com.softvalley.hotelpos.views.sale.adapter.PartyAdapter;
 import com.softvalley.hotelpos.views.sale.viewModel.OrderViewModel;
 
 public class OrderFragment extends Fragment {
@@ -29,11 +41,12 @@ public class OrderFragment extends Fragment {
     private boolean isOrderedBtnClick;
 
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mBinding = FragmentOrderBinding.inflate(inflater,container,false);
+        mBinding = FragmentOrderBinding.inflate(inflater, container, false);
         return mBinding.getRoot();
     }
 
@@ -41,13 +54,18 @@ public class OrderFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel= new ViewModelProvider(this).get(OrderViewModel.class);
+        viewModel = new ViewModelProvider(this).get(OrderViewModel.class);
         navController = NavHostFragment.findNavController(this);
         progressDialog = DialogUtil.getInstance().getProgressDialog(requireContext());
         ((AppCompatActivity) requireActivity()).getSupportActionBar().hide();
         mBinding.setViewModel(viewModel);
 
         getLiveData();
+
+        if (getArguments()!=null)
+        {
+            viewModel.setTable(OrderFragmentArgs.fromBundle(getArguments()).getTable());
+        }
     }
 
 
@@ -61,16 +79,12 @@ public class OrderFragment extends Fragment {
     private void getLiveData() {
 
 
-
-
-
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
 
-                if (s!=null)
-                {
-                    Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show();
+                if (s != null) {
+                    Snackbar.make(requireView(),s,Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -80,20 +94,16 @@ public class OrderFragment extends Fragment {
             @Override
             public void onChanged(Boolean showProgressDialog) {
 
-                if (showProgressDialog)
-                {
+                if (showProgressDialog) {
                     progressDialog.show();
-                }
-                else
-                {
+                } else {
                     progressDialog.dismiss();
                 }
             }
         });
 
         viewModel.getProduct().observe(getViewLifecycleOwner(), product -> {
-            if (product!=null)
-            {
+            if (product != null) {
                 mBinding.btnOrdering.setTextSize(18f);
                 mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.BOLD);
                 isOrderedBtnClick = false;
@@ -107,105 +117,83 @@ public class OrderFragment extends Fragment {
             }
         });
 
+        viewModel.getBtnAction().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (ADD_CUSTOMER_BTN == integer) {
+                    showCustomerDialog();
+                } else if (ORDER_BTN == integer) {
+                    mBinding.btnOrdered.setTextSize(18f);
+                    mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.BOLD);
+                    mBinding.btnOrdering.setTextSize(12f);
+                    mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.NORMAL);
+                    mBinding.btnSend.setVisibility(View.GONE);
+                    mBinding.btnPayment.setVisibility(View.VISIBLE);
+                    mBinding.rvOrderedProduct.setVisibility(View.VISIBLE);
+                    mBinding.rvOrderingProduct.setVisibility(View.GONE);
+                } else if (ORDERING_BTN == integer) {
+                    mBinding.btnOrdering.setTextSize(18f);
+                    mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.BOLD);
+                    isOrderedBtnClick = false;
+                    mBinding.btnOrdered.setTextSize(12f);
+                    mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.NORMAL);
+                    mBinding.btnSend.setVisibility(View.VISIBLE);
+                    mBinding.btnPayment.setVisibility(View.GONE);
+                    mBinding.rvOrderedProduct.setVisibility(View.GONE);
+                    mBinding.rvOrderingProduct.setVisibility(View.VISIBLE);
+                }else if (BACK_BTN==integer)
+                {
+                    requireActivity().onBackPressed();
+                }
+            }
+        });
 
+    }
+
+    private void showCustomerDialog() {
+        PartyAdapter adapter = new PartyAdapter(viewModel);
+        CustomSelectCustomerDialogBinding dialogBinding = CustomSelectCustomerDialogBinding.inflate(getLayoutInflater());
+
+        AlertDialog alertDialog = new AlertDialog.Builder(requireContext()).setView(dialogBinding.getRoot())
+                .setCancelable(false)
+                .create();
+
+        dialogBinding.setViewModel(viewModel);
+
+        alertDialog.show();
+
+        dialogBinding.rvCustomer.setLayoutManager(new LinearLayoutManager(requireContext()));
+        dialogBinding.rvCustomer.setAdapter(adapter);
+        viewModel.getCustomer();
+        viewModel.getPartyList().observe(getViewLifecycleOwner(), parties -> {
+            if (parties != null) {
+                adapter.setPartyListFull(parties);
+            }
+        });
+        dialogBinding.svSelectedCustomer.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                adapter.getFilter().filter(editable);
+            }
+        });
+        dialogBinding.btnCancel.setOnClickListener(v -> alertDialog.dismiss());
+
+        dialogBinding.btnSave.setOnClickListener(v -> {
+            alertDialog.dismiss();
+            viewModel.setCustomerID();
+        });
 
 
     }
-//    private void btnListeners() {
-//
-//        mBinding.btnOrdered.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                mBinding.btnOrdered.setTextSize(18f);
-//                mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.BOLD);
-//                mBinding.btnOrdering.setTextSize(12f);
-//                mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.NORMAL);
-//                adapterOrderedProducts.setOrderList(orderedProductsList);
-//                mBinding.btnSend.setVisibility(View.GONE);
-//                mBinding.btnPayment.setVisibility(View.VISIBLE);
-//                mBinding.rvOrderedProduct.setVisibility(View.VISIBLE);
-//                mBinding.rvOrderingProduct.setVisibility(View.GONE);
-//                quantity=0;
-//                payment=0;
-//                for (MDOrder model : orderedProductsList) {
-//                    quantity = quantity + 1;
-//                    payment = payment + (Double.parseDouble(model.getUNIT_RETAIL()) * model.getUnitSize());
-//
-//
-//                }
-//                mBinding.txtSubTotal.setText(String.valueOf(payment));
-//                mBinding.txtQuantityProduct.setText(String.valueOf(quantity));
-//
-//            }
-//        });
-//        mBinding.btnOrdering.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                mBinding.btnOrdering.setTextSize(18f);
-//                mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.BOLD);
-//                isOrderedBtnClick = false;
-//                mBinding.btnOrdered.setTextSize(12f);
-//                mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.NORMAL);
-//                mBinding.btnSend.setVisibility(View.VISIBLE);
-//                mBinding.btnPayment.setVisibility(View.GONE);
-//                mBinding.rvOrderedProduct.setVisibility(View.GONE);
-//                mBinding.rvOrderingProduct.setVisibility(View.VISIBLE);
-//                adapterOrderingProduct.setOrderList(orderingProductsList);
-//                quantity=0;
-//                payment=0;
-//                for (MDOrder model : orderingProductsList) {
-//                    quantity = quantity + 1;
-//                    payment = payment + (Double.parseDouble(model.getUNIT_RETAIL()) * model.getUnitSize());
-//
-//
-//                }
-//                mBinding.txtSubTotal.setText(String.valueOf(payment));
-//                mBinding.txtQuantityProduct.setText(String.valueOf(quantity));
-//
-//            }
-//        });
-//
-//        mBinding.btnBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                if (isSave) {
-//
-//                    showConfirmationDialog();
-//                } else {
-//                    navController.popBackStack();
-//
-//                }
-//
-//
-//            }
-//        });
-//
-//
-//        mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//                dataViewModel.insertAllOrder(orderingProductsList);
-//                orderedProductsList.addAll(orderingProductsList);
-//                orderingProductsList.clear();
-//                adapterOrderingProduct.setOrderList(orderingProductsList);
-//
-//                mBinding.txtQuantityProduct.setText("0.0");
-//                mBinding.txtSubTotal.setText("0.0");
-//
-//                isSave = false;
-//                SharedPreferenceHelper.getInstance(requireContext()).setIsReserved(mdTable.getTablesNAME(), true);
-//
-//                mdTable.setReserved(true);
-//
-//
-//            }
-//        });
-//    }
-
 
 }

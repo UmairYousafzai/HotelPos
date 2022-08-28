@@ -33,6 +33,7 @@ public class CONSTANTS {
     public static final int SAVE_STOCK_ADJUSTMENT_RESPONSE=23;
     public static final int GET_TABLE_RESPONSE=24;
     public static final int GET_PRODUCT_RESPONSE=25;
+    public static final int SAVE_TABLE_RESPONSE=26;
 
 
     public static final int PERMISSION_REQUEST_CODE = 1;
@@ -59,5 +60,10 @@ public class CONSTANTS {
     public static  int AUTHORIZE_BTN =19;
     public static  int PRODUCT_REDUCE_BTN =20;
     public static  int PRODUCT_ADD_BTN =21;
+    public static  int SAVE_HOTEL_SALE_BTN =22;
+    public static  int ADD_CUSTOMER_BTN =23;
+    public static  int ORDER_BTN =24;
+    public static  int ORDERING_BTN =25;
+    public static  int BACK_BTN =26;
 
 }
