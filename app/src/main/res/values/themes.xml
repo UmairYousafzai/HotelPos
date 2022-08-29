@@ -34,6 +34,15 @@
         <item name="android:textColor">@color/font_color_dark</item>
         <item name="android:background">@drawable/text_view_background_1</item>
     </style>
+    <style name="FunctionalButtons2">
+        <item name="android:textSize">12sp</item>
+        <item name="android:minHeight">@dimen/_70sdp</item>
+        <item name="android:maxHeight">300dp</item>
+        <item name="android:minWidth">5dp</item>
+        <item name="android:maxWidth">300dp</item>
+        <item name="android:textColor">@color/font_color_dark</item>
+        <item name="android:background">@drawable/text_view_background_1</item>
+    </style>
 
 
     <style name="AppBottomSheetDialogTheme"

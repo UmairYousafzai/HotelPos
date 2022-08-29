@@ -398,7 +398,11 @@
         tools:layout="@layout/fragment_stock_adjustment">
         <action
             android:id="@+id/action_stockAdjustmentFragment_to_stockAdjustListFragment"
-            app:destination="@id/stockAdjustListFragment" />
+            app:destination="@id/stockAdjustListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/stockAdjustListFragment"
@@ -411,7 +415,11 @@
         tools:layout="@layout/fragment_tables_list">
         <action
             android:id="@+id/action_tableListFragment_to_orderFragment"
-            app:destination="@id/orderFragment" />
+            app:destination="@id/orderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -424,6 +432,23 @@
         <argument
             android:name="noOfGuest"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_orderFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.softvalley.hotelpos.views.sale.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment"
+        >
+        <argument
+            android:name="documentOrder"
+            app:argType="com.softvalley.hotelpos.models.request.Order.Document" />
     </fragment>
 
 

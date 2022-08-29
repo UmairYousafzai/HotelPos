@@ -65,5 +65,6 @@ public class CONSTANTS {
     public static  int ORDER_BTN =24;
     public static  int ORDERING_BTN =25;
     public static  int BACK_BTN =26;
+    public static  int PAYMENT_BTN =27;
 
 }

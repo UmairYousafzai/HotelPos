@@ -57,12 +57,14 @@ public class OrderViewModel extends AndroidViewModel {
     private final MutableLiveData<Integer> btnAction;
     private final MutableLiveData<Product> product;
     private final MutableLiveData<List<Party>> partyList;
+    private final MutableLiveData<Document> documentMutableLiveData;
     private final ObservableField<String> subTotalAmount;
     private final ObservableField<String> totalQty;
     private final ObservableField<String> selectedCustomerName;
     private final HashMap<String, String> customerIdHashMap;
     private String customerCode = "";
     private String docNumber = "";
+    private String businessDocNumber = "";
     private String action = "INSERT";
     private boolean isAuthorizeRequest = false;
 
@@ -74,6 +76,7 @@ public class OrderViewModel extends AndroidViewModel {
         departmentAdapter = new AdapterOrderDepartment(this);
         orderedProductAdapter = new AdapterOrderedProducts(this);
         toastMessage = new MutableLiveData<>();
+        documentMutableLiveData = new MutableLiveData<>();
         btnAction = new MutableLiveData<>();
         showProgressDialog = new MutableLiveData<>();
         product = new MutableLiveData<>();
@@ -89,7 +92,7 @@ public class OrderViewModel extends AndroidViewModel {
 
     public void onClick(int key) {
         if (key == SAVE_HOTEL_SALE_BTN) {
-            saveSaleDocument();
+            saveSaleDocument(false);
         } else if (key == ORDER_BTN) {
             getOrderByDocCode(docNumber);
         }
@@ -223,6 +226,10 @@ public class OrderViewModel extends AndroidViewModel {
 
     }
 
+    public MutableLiveData<Document> getDocumentMutableLiveData() {
+        return documentMutableLiveData;
+    }
+
     public void getCustomer() {
         String businessID = SharedPreferenceHelper.getInstance(getApplication()).getBUSINESS_ID();
         showProgressDialog.setValue(true);
@@ -232,7 +239,7 @@ public class OrderViewModel extends AndroidViewModel {
     }
 
     public void getOrderByDocCode(String docCode) {
-        if (docCode != null && docCode.isEmpty()) {
+        if (docCode != null && !docCode.isEmpty()) {
             showProgressDialog.setValue(true);
             repository.getOrderCode(docCode);
         }
@@ -246,6 +253,7 @@ public class OrderViewModel extends AndroidViewModel {
         orderedProductAdapter.setItemList(list);
         action = "UPDATE";
         customerCode = document.getPartyCode();
+        businessDocNumber= document.getDocNoBusinessWise();
 
         double quantity = 0;
         for (Product item : document.getItems()) {
@@ -256,13 +264,17 @@ public class OrderViewModel extends AndroidViewModel {
 
     }
 
-    private void saveSaleDocument() {
+    private void saveSaleDocument(boolean isAuthorizeRequest) {
         if (!customerCode.isEmpty()) {
             if (!subTotalAmount.get().equals("0")) {
                 String businessID = SharedPreferenceHelper.getInstance(getApplication()).getBUSINESS_ID();
                 String userID = SharedPreferenceHelper.getInstance(getApplication()).getUserID();
                 Document document = new Document();
-                document.setItems(orderingProductAdapter.getItemList());
+                if (!isAuthorizeRequest) {
+                    document.setItems(orderingProductAdapter.getItemList());
+                } else {
+                    document.setItems(orderedProductAdapter.getItemList());
+                }
                 document.setAction(action);
                 document.setBusinessId(businessID);
                 document.setLocationCode("000001");
@@ -273,6 +285,7 @@ public class OrderViewModel extends AndroidViewModel {
                 document.setStatus("0");
                 document.setDocDate(DateUtil.getInstance().getDate());
                 document.setDocNo(docNumber);
+                document.setDocNoBusinessWise(businessDocNumber);
                 document.setTableCode(table.getTableCode());
 //                    if (actionMutableLiveData.getValue().equals("UPDATE")) {
 //                        document.setDocNoBusinessWise(docNumberBusiness.get());
@@ -281,6 +294,8 @@ public class OrderViewModel extends AndroidViewModel {
 //                        document.setDocNo("");
 //
 //                    }
+                documentMutableLiveData.setValue(document);
+
                 showProgressDialog.setValue(true);
 
                 repository.saveSaleOrder(document);
@@ -351,7 +366,6 @@ public class OrderViewModel extends AndroidViewModel {
                         if (purchaseByCode.getDocument() != null) {
                             setFields(purchaseByCode.getDocument());
                         }
-
                     }
                     toastMessage.setValue(purchaseByCode.getMessage());
                     showProgressDialog.setValue(false);

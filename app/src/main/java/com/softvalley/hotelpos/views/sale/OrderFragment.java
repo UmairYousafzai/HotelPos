@@ -4,6 +4,7 @@ import static com.softvalley.hotelpos.utils.CONSTANTS.ADD_CUSTOMER_BTN;
 import static com.softvalley.hotelpos.utils.CONSTANTS.BACK_BTN;
 import static com.softvalley.hotelpos.utils.CONSTANTS.ORDERING_BTN;
 import static com.softvalley.hotelpos.utils.CONSTANTS.ORDER_BTN;
+import static com.softvalley.hotelpos.utils.CONSTANTS.PAYMENT_BTN;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class OrderFragment extends Fragment {
         super.onStop();
 
         viewModel.getToastMessage().setValue(null);
+        viewModel.getBtnAction().setValue(-1);
     }
 
     private void getLiveData() {
@@ -144,6 +146,12 @@ public class OrderFragment extends Fragment {
                 }else if (BACK_BTN==integer)
                 {
                     requireActivity().onBackPressed();
+                }
+                else if(PAYMENT_BTN== integer)
+                {
+                    if (integer!=-1) {
+                        navController.navigate(OrderFragmentDirections.actionOrderFragmentToPaymentFragment(viewModel.getDocumentMutableLiveData().getValue()));
+                    }
                 }
             }
         });

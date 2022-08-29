@@ -99,5 +99,15 @@
     <string name="add_table">Add Table</string>
     <string name="table_name">Table Name</string>
     <string name="select_status">Select Status</string>
+    <string name="pay">Pay:</string>
+    <string name="receipt">Receipt</string>
+    <string name="drawer">Drawer</string>
+    <string name="customer">Customer</string>
+    <string name="clear">Clear</string>
+    <string name="total">Total:</string>
+    <string name="paid">Paid:</string>
+    <string name="change">Change:</string>
+    <string name="cash">Cash</string>
+    <string name="credit">Credit</string>
 
 </resources>
