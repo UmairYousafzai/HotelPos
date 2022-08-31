@@ -429,9 +429,7 @@
         <argument
             android:name="table"
             app:argType="com.softvalley.hotelpos.models.response.table.Table" />
-        <argument
-            android:name="noOfGuest"
-            app:argType="integer" />
+
         <action
             android:id="@+id/action_orderFragment_to_paymentFragment"
             app:destination="@id/paymentFragment"
@@ -439,6 +437,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="isReserved"
+            app:argType="boolean"
+            />
     </fragment>
     <fragment
         android:id="@+id/paymentFragment"

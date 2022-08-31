@@ -134,6 +134,8 @@ public interface Api {
 
     @GET("api/Sale/SaleByCode")
     Call<SaveOrderResponse> getOrderByCode(@Query("DocNo")String docNO);
+    @GET("api/sale/SaleByTableCode")
+    Call<SaveOrderResponse> getOrderByTable(@Query("TableCode")String tableCode,@Query("BusinessId")String businessID);
 
     @POST("api/Sale/SaveSale")
     Call<SaveDocumentResponse> saveSaleDoc(@Body Document document);

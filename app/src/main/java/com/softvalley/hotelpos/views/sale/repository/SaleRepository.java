@@ -338,6 +338,47 @@ public class SaleRepository {
             }
         });
     }
+    public void getOrderByTAble(String tableCode,String businessID) {
+        Call<SaveOrderResponse> call = ApiClient.getInstance().getApi().getOrderByTable(tableCode,businessID);
+
+        call.enqueue(new Callback<SaveOrderResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<SaveOrderResponse> call, @NonNull Response<SaveOrderResponse> response) {
+
+                if (response.isSuccessful()) {
+                    if (response.body() != null) {
+                        if (callBackListener != null) {
+
+                            callBackListener.getServerResponse(response.body(), GET_DOCUMENT_BY_CODE);
+
+                        }
+                    } else {
+                        callBackListener.getServerResponse("Nothing Found", SERVER_ERROR);
+
+                    }
+
+
+                } else {
+                    if (response.errorBody() != null) {
+                        if (callBackListener != null) {
+                            callBackListener.getServerResponse(response.errorBody().toString(), SERVER_ERROR);
+
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<SaveOrderResponse> call, @NonNull Throwable t) {
+
+                if (callBackListener != null) {
+                    callBackListener.getServerResponse(t.getMessage(), SERVER_ERROR);
+
+                }
+            }
+        });
+    }
     public void getDepartmentFromServer(String businessId)
     {
 

@@ -1,176 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background_color_two">
-    <TextView
-        android:id="@+id/tv_total_heading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/total"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_total"
-        android:padding="8dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        />
-    <TextView
-        android:id="@+id/tv_total"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/total"
-        android:textSize="@dimen/_15ssp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_total_heading"
-        app:layout_constraintEnd_toStartOf="@id/tv_total_Pay"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        />
-    <TextView
-        android:id="@+id/tv_total_Pay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/pay"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.softvalley.hotelpos.views.sale.viewModel.PaymentViewModel" />
+    </data>
 
-        app:layout_constraintStart_toEndOf="@id/tv_total"
-        app:layout_constraintEnd_toStartOf="@id/tv_pay"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
-
-        />
-    <TextView
-        android:id="@+id/tv_pay"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/pay"
-        android:textSize="@dimen/_15ssp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_total_Pay"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="10dp"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
-
-        />
-    <View
-        android:id="@+id/view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/gray_custom"
-        app:layout_constraintTop_toBottomOf="@id/tv_total_heading"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="20dp"
-        />
-    <TextView
-        android:id="@+id/tv_paid_heading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/paid"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_paid"
-        android:padding="8dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        />
-    <TextView
-        android:id="@+id/tv_paid"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/paid"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/view"
-        app:layout_constraintStart_toEndOf="@id/tv_paid_heading"
-        app:layout_constraintEnd_toStartOf="@id/tv_Change_heading"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        android:background="@color/background_color_two">
 
-        />
-    <TextView
-        android:id="@+id/tv_Change_heading"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/change"
-        android:textSize="@dimen/_15ssp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/view"
+        <TextView
+            android:id="@+id/tv_total_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_total"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp" />
 
-        app:layout_constraintStart_toEndOf="@id/tv_paid"
-        app:layout_constraintEnd_toStartOf="@id/tv_change"
-        android:padding="8dp"
-        android:layout_marginTop="20dp"
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.totalAmount,default=total}"
+            
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_total_heading"
+            app:layout_constraintEnd_toStartOf="@id/tv_total_Pay"
+            android:padding="8dp"
+            android:layout_marginTop="20dp"
 
-        />
-    <TextView
-        android:id="@+id/tv_change"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/change"
-        android:textSize="@dimen/_15ssp"
-        android:textColor="@android:color/holo_green_dark"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/view"
+            />
 
-        app:layout_constraintStart_toEndOf="@id/tv_Change_heading"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:padding="8dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="20dp"
+        <TextView
+            android:id="@+id/tv_total_Pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pay"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
 
-        />
+            app:layout_constraintStart_toEndOf="@id/tv_total"
+            app:layout_constraintEnd_toStartOf="@id/tv_pay"
+            android:padding="8dp"
+            android:layout_marginTop="20dp"
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_cash"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/cash"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        app:backgroundTint="@color/gray_custom"
-        app:cornerRadius="5dp"
-        android:layout_marginEnd="20dp"
-        android:padding="10dp"
-        app:layout_constraintEnd_toStartOf="@id/btn_credit"
-        app:layout_constraintBottom_toTopOf="@+id/keyboard_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_paid_heading"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginStart="10dp"/>
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_credit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/credit"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"
-        app:backgroundTint="@color/gray_custom"
-        app:cornerRadius="5dp"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/keyboard_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_paid_heading"
-        app:layout_constraintStart_toEndOf="@id/btn_cash"
-        app:layout_constraintVertical_bias="1.0"
-        android:layout_marginEnd="10dp"/>
+            />
 
-    <include
-        android:id="@+id/keyboard_layout"
-        layout="@layout/custom_keyboaord2_layout"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_14ssp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_total_Pay"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            android:padding="8dp"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:text="@={viewModel.payAmount,default=Amount}"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/gray_custom"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_heading"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_paid_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paid"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tv_paid"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/tv_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/paid"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintStart_toEndOf="@id/tv_paid_heading"
+            app:layout_constraintEnd_toStartOf="@id/tv_Change_heading"
+            android:padding="8dp"
+            android:layout_marginTop="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_Change_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/change"
+            android:textSize="@dimen/_14ssp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/view"
+
+            app:layout_constraintStart_toEndOf="@id/tv_paid"
+            app:layout_constraintEnd_toStartOf="@id/tv_change"
+            android:padding="8dp"
+            android:layout_marginTop="20dp"
+
+            />
+
+        <TextView
+            android:id="@+id/tv_change"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@={viewModel.changeAmount,default=change}"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@{viewModel.isChangeNegative?@color/custom_red_color:@android:color/holo_green_dark}"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/view"
+
+            app:layout_constraintStart_toEndOf="@id/tv_Change_heading"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:textAlignment="textEnd"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="20dp"
+
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cash"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cash"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:backgroundTint="@color/gray_custom"
+            app:cornerRadius="5dp"
+            android:layout_marginEnd="20dp"
+            android:padding="10dp"
+            app:layout_constraintEnd_toStartOf="@id/btn_credit"
+            app:layout_constraintBottom_toTopOf="@+id/keyboard_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_paid_heading"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginStart="10dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_credit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/credit"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:backgroundTint="@color/gray_custom"
+            app:cornerRadius="5dp"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_cash"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_paid_heading"
+            app:layout_constraintStart_toEndOf="@id/btn_cash"
+            app:layout_constraintVertical_bias="1.0"
+            android:layout_marginEnd="10dp" />
+
+        <include
+            android:id="@+id/keyboard_layout"
+            layout="@layout/custom_keyboaord2_layout"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:viewModel="@{viewModel}"
+            app:layout_constraintTop_toBottomOf="@id/btn_cash"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

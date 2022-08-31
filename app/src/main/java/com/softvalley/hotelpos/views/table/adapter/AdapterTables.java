@@ -24,29 +24,28 @@ import java.util.List;
 public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder> {
     private final List<Table> tableModelList;
     private final Context context;
-    private  LayoutInflater layoutInflater;
+    private LayoutInflater layoutInflater;
     private TableClickListener listener;
 
-    public AdapterTables(Context context,TableClickListener listener) {
+    public AdapterTables(Context context, TableClickListener listener) {
         this.context = context;
         this.tableModelList = new ArrayList<>();
-        this.listener= listener;
+        this.listener = listener;
     }
 
-    public interface TableClickListener{
-         void onClick(Table table,int noOfGuest);
+    public interface TableClickListener {
+        void onClick(Table table, int noOfGuest);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        if (layoutInflater==null)
-        {
+        if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(viewGroup.getContext());
         }
 
-        ItemTablesBinding binding = ItemTablesBinding.inflate(layoutInflater,viewGroup,false);
+        ItemTablesBinding binding = ItemTablesBinding.inflate(layoutInflater, viewGroup, false);
 
         return new ViewHolder(binding);
 
@@ -56,12 +55,14 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
         final Table table = tableModelList.get(i);
         holder.mBinding.txtTable.setText(table.getTableName());
-        if (SharedPreferenceHelper.getInstance(context).getIsReserved(table.getTableName())) {
+        if (table.getStatus().equals("Reserved")) {
             holder.mBinding.tableCard.setCardBackgroundColor(Color.parseColor("#EEAF48"));
-            int numberOfGuest=SharedPreferenceHelper.getInstance(context).getNumberOfGuestByTable(String.valueOf(table.getTableCode()));
-            holder.mBinding.tvNumberGuest.setText(String.valueOf(numberOfGuest));
+        }else
+        {
+            holder.mBinding.tableCard.setCardBackgroundColor(Color.parseColor("#FFFFFFFF"));
         }
-
+        int numberOfGuest = SharedPreferenceHelper.getInstance(context).getNumberOfGuestByTable(String.valueOf(table.getTableCode()));
+        holder.mBinding.tvNumberGuest.setText(String.valueOf(numberOfGuest));
         Log.e("tabelName", "" + table.getTableName());
     }
 
@@ -70,11 +71,9 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         return tableModelList.size();
     }
 
-    public void setTableModelList(List<Table> list)
-    {
+    public void setTableModelList(List<Table> list) {
         tableModelList.clear();
-        if (list!=null)
-        {
+        if (list != null) {
             tableModelList.addAll(list);
         }
 
@@ -82,37 +81,24 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         notifyDataSetChanged();
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
         ItemTablesBinding mBinding;
 
         ViewHolder(@NonNull ItemTablesBinding binding) {
             super(binding.getRoot());
-            mBinding =binding;
+            mBinding = binding;
 
             mBinding.txtTable.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     final Table table = tableModelList.get(getAdapterPosition());
-
-                    if (SharedPreferenceHelper.getInstance(context).getIsReserved(table.getTableName()))
-                    {
-
-//                        NavController navController= NavHostFragment.findNavController(fragment);
-//
-//                        DashBoardFragmentDirections.ActionDashBoardFragmentToOrderFragment action= DashBoardFragmentDirections.actionDashBoardFragmentToOrderFragment();
-//                        action.setNumOfGuest(6);
-//                        action.setTable(table);
-//
-//                        navController.navigate(action);
-
-//                    Intent intent = new Intent(context, OrderActivity.class);
-//                    intent.putExtra("tabeleDetail", table);
-//                    intent.putExtra("guest", 6);
-//                    context.startActivity(intent);
-                    }
-                    else {
+                    if (!table.getStatus().equals("Reserved")) {
                         showTableDialog(table);
+                    } else {
+                        if (listener != null) {
+                            listener.onClick(table, -1);
+                        }
                     }
                 }
             });
@@ -149,7 +135,7 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
 //                action.setTable(table);
 //
 //                navController.navigate(action);
-                listener.onClick(table,1);
+                listener.onClick(table, 1);
                 Log.e("tableNAMe", table.getTableName());
                 dialog.dismiss();
             }
@@ -157,14 +143,14 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         txtTwo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,2);
+                listener.onClick(table, 2);
                 dialog.dismiss();
             }
         });
         txtThree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,3);
+                listener.onClick(table, 3);
 
                 dialog.dismiss();
             }
@@ -172,63 +158,63 @@ public class AdapterTables extends RecyclerView.Adapter<AdapterTables.ViewHolder
         txtFour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,4);
+                listener.onClick(table, 4);
                 dialog.dismiss();
             }
         });
         txtFive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,5);
+                listener.onClick(table, 5);
                 dialog.dismiss();
             }
         });
         txtSix.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,6);
+                listener.onClick(table, 6);
                 dialog.dismiss();
             }
         });
         txtSeven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,7);
+                listener.onClick(table, 7);
                 dialog.dismiss();
             }
         });
         txtEight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,8);
+                listener.onClick(table, 8);
                 dialog.dismiss();
             }
         });
         txtNine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,9);
+                listener.onClick(table, 9);
                 dialog.dismiss();
             }
         });
         txtTen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,10);
+                listener.onClick(table, 10);
                 dialog.dismiss();
             }
         });
         txtEleven.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,11);
+                listener.onClick(table, 11);
                 dialog.dismiss();
             }
         });
         txtTwelve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onClick(table,12);
+                listener.onClick(table, 12);
                 dialog.dismiss();
             }
         });

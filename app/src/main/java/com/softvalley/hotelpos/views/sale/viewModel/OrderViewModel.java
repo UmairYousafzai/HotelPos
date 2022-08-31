@@ -244,6 +244,13 @@ public class OrderViewModel extends AndroidViewModel {
             repository.getOrderCode(docCode);
         }
     }
+    public void getOrderByTableCode(String tableCode) {
+        if (tableCode != null && !tableCode.isEmpty()) {
+            String businessID= SharedPreferenceHelper.getInstance(getApplication()).getBUSINESS_ID();
+            showProgressDialog.setValue(true);
+            repository.getOrderByTAble(tableCode,businessID);
+        }
+    }
 
     private void setFields(com.softvalley.hotelpos.models.request.Order.Document document) {
         docNumber = document.getDocNo();
@@ -260,8 +267,7 @@ public class OrderViewModel extends AndroidViewModel {
             quantity += item.getQty();
         }
         totalQty.set(String.valueOf(quantity));
-
-
+        documentMutableLiveData.setValue(document);
     }
 
     private void saveSaleDocument(boolean isAuthorizeRequest) {

@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.softvalley.hotelpos.databinding.CustomSelectCustomerDialogBinding;
 import com.softvalley.hotelpos.databinding.FragmentOrderBinding;
+import com.softvalley.hotelpos.models.response.table.Table;
 import com.softvalley.hotelpos.utils.CONSTANTS;
 import com.softvalley.hotelpos.utils.DialogUtil;
 import com.softvalley.hotelpos.views.sale.adapter.PartyAdapter;
@@ -65,7 +66,13 @@ public class OrderFragment extends Fragment {
 
         if (getArguments()!=null)
         {
-            viewModel.setTable(OrderFragmentArgs.fromBundle(getArguments()).getTable());
+            Table table=OrderFragmentArgs.fromBundle(getArguments()).getTable();
+            viewModel.setTable(table);
+            if (OrderFragmentArgs.fromBundle(getArguments()).getIsReserved())
+            {
+                viewModel.getOrderByTableCode(table.getTableCode());
+                setupOrderedUI();
+            }
         }
     }
 
@@ -125,14 +132,7 @@ public class OrderFragment extends Fragment {
                 if (ADD_CUSTOMER_BTN == integer) {
                     showCustomerDialog();
                 } else if (ORDER_BTN == integer) {
-                    mBinding.btnOrdered.setTextSize(18f);
-                    mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.BOLD);
-                    mBinding.btnOrdering.setTextSize(12f);
-                    mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.NORMAL);
-                    mBinding.btnSend.setVisibility(View.GONE);
-                    mBinding.btnPayment.setVisibility(View.VISIBLE);
-                    mBinding.rvOrderedProduct.setVisibility(View.VISIBLE);
-                    mBinding.rvOrderingProduct.setVisibility(View.GONE);
+                    setupOrderedUI();
                 } else if (ORDERING_BTN == integer) {
                     mBinding.btnOrdering.setTextSize(18f);
                     mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.BOLD);
@@ -155,6 +155,18 @@ public class OrderFragment extends Fragment {
                 }
             }
         });
+
+    }
+
+    private void setupOrderedUI() {
+        mBinding.btnOrdered.setTextSize(18f);
+        mBinding.btnOrdered.setTypeface(mBinding.btnOrdered.getTypeface(), Typeface.BOLD);
+        mBinding.btnOrdering.setTextSize(12f);
+        mBinding.btnOrdering.setTypeface(mBinding.btnOrdering.getTypeface(), Typeface.NORMAL);
+        mBinding.btnSend.setVisibility(View.GONE);
+        mBinding.btnPayment.setVisibility(View.VISIBLE);
+        mBinding.rvOrderedProduct.setVisibility(View.VISIBLE);
+        mBinding.rvOrderingProduct.setVisibility(View.GONE);
 
     }
 

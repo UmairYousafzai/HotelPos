@@ -37,7 +37,7 @@ public class TableListFragment extends Fragment implements AdapterTables.TableCl
     private FragmentTablesListBinding binding;
     private NavController navController;
     private AdapterTables adapterTables;
-    private List<Table> tableList = new ArrayList<>();
+    private final List<Table> tableList = new ArrayList<>();
     private TableViewModel viewModel;
     private AlertDialog progressDialog;
 
@@ -79,64 +79,59 @@ public class TableListFragment extends Fragment implements AdapterTables.TableCl
     private void showAddTableDialog() {
 
 
-            CustomAddTableDialogBinding dialogBinding = CustomAddTableDialogBinding.inflate(getLayoutInflater());
+        CustomAddTableDialogBinding dialogBinding = CustomAddTableDialogBinding.inflate(getLayoutInflater());
 
-            AlertDialog alertDialog= new AlertDialog.Builder(requireContext()).setView(dialogBinding.getRoot())
-                    .setCancelable(false)
-                    .create();
-            alertDialog.show();
-            setupProductStatusDialog(dialogBinding);
+        AlertDialog alertDialog = new AlertDialog.Builder(requireContext()).setView(dialogBinding.getRoot())
+                .setCancelable(false)
+                .create();
+        alertDialog.show();
+        setupProductStatusDialog(dialogBinding);
 
-            dialogBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        dialogBinding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        dialogBinding.btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String status;
+                if (dialogBinding.statusSpinner.getText() != null &&
+                        dialogBinding.statusSpinner.getText().toString().equals("Active")) {
+                    status = "a";
+                } else {
+                    status = "i";
+                }
+                if (dialogBinding.etTableName.getText() != null &&
+                        dialogBinding.etTableName.getText().toString().isEmpty()) {
+                    dialogBinding.etNameLayout.setError("Please enter the name");
+
+                } else {
+                    String userId = SharedPreferenceHelper.getInstance(requireContext()).getUserID();
+                    String businessID = SharedPreferenceHelper.getInstance(requireContext()).getBUSINESS_ID();
+                    viewModel.saveTable(
+                            new Table("", "",
+                                    dialogBinding.etTableName.getText().toString()
+                                    , status, userId, businessID, "INSERT")
+                    );
                     alertDialog.dismiss();
-                }
-            });
-
-            dialogBinding.btnDone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    String status;
-                    if (dialogBinding.statusSpinner.getText()!=null &&
-                            dialogBinding.statusSpinner.getText().toString().equals("Active"))
-                    {
-                       status= "a";
-                    }else
-                    {
-                        status="i";
-                    }
-                    if (dialogBinding.etTableName.getText()!=null &&
-                    dialogBinding.etTableName.getText().toString().isEmpty())
-                    {
-                        dialogBinding.etNameLayout.setError("Please enter the name");
-
-                    }else
-                    {
-                        String userId= SharedPreferenceHelper.getInstance(requireContext()).getUserID();
-                        String businessID= SharedPreferenceHelper.getInstance(requireContext()).getBUSINESS_ID();
-                        viewModel.saveTable(
-                                new Table("","",
-                                        dialogBinding.etTableName.getText().toString()
-                                ,status,userId,businessID,"INSERT")
-                        );
-                        alertDialog.dismiss();
-
-                    }
 
                 }
-            });
 
+            }
+        });
 
 
     }
 
     private void setupProductStatusDialog(CustomAddTableDialogBinding dialogBinding) {
 
-        ArrayList<String> list= new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("Active");
         list.add("in-Active");
-        ArrayAdapter adapter= new ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line,list);
+        ArrayAdapter adapter = new ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, list);
         dialogBinding.statusSpinner.setAdapter(adapter);
     }
 
@@ -150,9 +145,8 @@ public class TableListFragment extends Fragment implements AdapterTables.TableCl
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                if (s!=null)
-                {
-                    Snackbar.make(requireView(),s,Snackbar.LENGTH_SHORT).show();
+                if (s != null) {
+                    Snackbar.make(requireView(), s, Snackbar.LENGTH_SHORT).show();
                 }
             }
         });
@@ -176,7 +170,6 @@ public class TableListFragment extends Fragment implements AdapterTables.TableCl
     }
 
     private void setUpRecyclerView() {
-
         adapterTables = new AdapterTables(requireContext(), this);
         binding.rvTables.setAdapter(adapterTables);
         binding.rvTables.setLayoutManager(new GridLayoutManager(requireContext(), 3));
@@ -184,6 +177,6 @@ public class TableListFragment extends Fragment implements AdapterTables.TableCl
 
     @Override
     public void onClick(Table table, int noOfGuest) {
-        navController.navigate( TableListFragmentDirections.actionTableListFragmentToOrderFragment(table,noOfGuest));
+        navController.navigate(TableListFragmentDirections.actionTableListFragmentToOrderFragment(table, noOfGuest == -1));
     }
 }
